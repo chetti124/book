@@ -1,0 +1,81 @@
+<body>
+    <title>Book Store</title>
+    <header> Book Application  </header><br><br>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+        </style>
+    <table>
+        <tr>
+            <th> Book ID</th>
+            <th> Book name </th>
+            <th> Book Price </th>
+            <th> Book Qty </th>
+            <th> Book is_active </th>
+            <th>Action</th>
+        </tr>
+    {% for books in all_books %}
+        <tr>
+            <td>{{books.id}}</td>
+            <td>{{books.name}}</td>
+            <td>{{books.price}}</td>
+            <td>{{books.qty}}</td>
+            <td>{{books.is_active}}</td>
+            <td>
+                {% if not inactive %}
+                <form action="{% url 'update_book' books.id %}" method="POST">
+                    {% csrf_token %}
+                <input type="submit" value="Update">
+                </form> 
+
+                <form action="{% url 'soft_delete' books.id %}" method="POST">
+                    {% csrf_token %}
+                <input type="submit" value="Soft Delete">
+                </form> 
+                
+                {% endif %}
+
+                <form action="{% url 'delete_book' books.id %}" method="POST">
+                    {% csrf_token %}
+                <input type="submit" value="Hard Delete">
+                </form>
+                 
+                <form action="{% url 'restore_book' books.id %}" method="POST">
+                    {% csrf_token %}
+                <input type="submit" value="Restore book">
+                </form> 
+            </td>
+
+            
+                
+            </td>
+        </tr>
+
+           
+
+
+
+
+
+    {% endfor %}
+
+    </table>
+
+    <a href="{% url 'home_page' %}">Home page</a>
+    <a href="{% url 'inactive_books' %}">Inactive Book</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>

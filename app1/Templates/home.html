@@ -1,0 +1,45 @@
+
+<html>
+    {% load static %}
+    <body>
+        <title> Libraray</title>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+        <header>Library Application</header><br><br>
+
+        <form action= "{% url 'home_page' % }" method="POST">
+            {% csrf_token %}
+            {% if single_book %}
+                id = <input type="number", name="book_id" readonly><br><br>
+            {% endif %}
+            name = <input type="text" name="Book_name"><br><br>
+            price= <input type="number" name="Book_price"><br><br>
+            qty = <input type="number" name="Book_qty"><br><br>
+            author= <input type="text" name="Book_author"><br><br>
+            {% if single_book %}
+                    {% if single_book.is_active == True %}
+                        is_active:-Yes<input type="radio" name="book-is_active" value="Yes" checked > No<input type="radio" name="book-is_active" value="No"><br><br>
+                    {% else %}
+                    is_active:-Yes<input type="radio" name="book-is_active" value="Yes"  > No<input type="radio" name="book-is_active" value="No" checked><br><br>
+                    {% endif %}
+                {% else %}
+                    is_active:-Yes<input type="radio" name="book-is_active" value="Yes"  > No<input type="radio" name="book-is_active" value="No"><br><br>
+            {%endif%}
+            
+            <input type="submit" value="submit">
+
+                        
+        </form>
+
+
+
+
+    <a href="{% url 'store_books' %}">Store Book</a>
+    <a href="{% url 'inactive_books' %}">Inactive Book</a>
+
+
+
+</body>
+
+
+</html>
